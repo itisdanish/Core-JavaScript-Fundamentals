@@ -1,0 +1,91 @@
+🔥 .call() kya hota hai?
+
+.call() ek JavaScript method hai jiska use hum kisi function ko borrow (utha kar) kisi object ke saath chalane ke liye karte hain.
+
+Simple language:
+Agar function kisi object ke andar nahi hota, phir bhi hum .call() se us function ko us object ka function jaisa chala sakte hain.
+
+
+💡 .call() ka real use case
+
+- Jab hum same function multiple objects ke liye use karna chaahte hain.
+- Bar-bar duplicate function banane ki jarurat nahi padti.
+
+Example:
+Imagine function full name print karta hai.
+Har object ke andar same function likhne ka koi fayda nahi.
+Ek function bana lenge, aur use kisi bhi object ke liye .call() se chala skte hain.
+
+
+📌 Summary
+
+Feature            Meaning
+-------------------------------------------------
+.call()            Function borrow karne ka tarika
+First argument     Kaun sa object "this" hoga
+Next arguments     Function ke normal parameters
+
+
+
+------------------------------------------------
+
+🔥 call(), apply(), bind() — Simple Explanation in English
+
+These three JavaScript methods are used to borrow a function and run it with a specific object.
+
+----------------------------------------------------
+1️⃣ .call()
+----------------------------------------------------
+Definition (simple):
+.call() runs a function with a given object. Arguments are passed normally.
+
+Syntax:
+function.call(object, arg1, arg2, ...)
+
+Example:
+printFullName.call(name, "Patna", "Bihar")
+
+
+----------------------------------------------------
+2️⃣ .apply()
+----------------------------------------------------
+Definition (simple):
+.apply() also runs a function with a given object. But arguments are passed in an array.
+
+Syntax:
+function.apply(object, [arg1, arg2, ...])
+
+Example:
+printFullName.apply(name2, ["Mumbai", "Maharashtra"])
+
+
+----------------------------------------------------
+3️⃣ .bind()
+----------------------------------------------------
+Definition (simple):
+.bind() does not run the function immediately. It creates a copy of the function with a fixed object and arguments. You can call it later.
+
+Syntax:
+let newFunc = function.bind(object, arg1, arg2, ...)
+newFunc()
+
+Example:
+let printMyName = printFullName.bind(name, "bind", "bond")
+printMyName()
+
+
+----------------------------------------------------
+🔍 Real-Life Use Case
+----------------------------------------------------
+We write only one function. Then we use call(), apply(), and bind() to use that function for many objects.
+This avoids writing the same function again and again.
+
+
+----------------------------------------------------
+📌 Summary Table
+----------------------------------------------------
+Method     | Simple Meaning
+-----------------------------------------------
+call()     | Run function now + pass arguments normally
+apply()    | Run function now + pass arguments in array
+bind()     | Do not run now + make new function to run later
