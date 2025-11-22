@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Core JavaScript — Playground</title>
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --accent: #7c5cff;
+        --muted: #9aa4b2;
+        --glass: rgba(255, 255, 255, 0.04);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+          Roboto, 'Helvetica Neue';
+        background: linear-gradient(180deg, #071226 0%, #081428 60%);
+        color: #e6eef8;
+        min-height: 100vh;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 36px auto;
+        padding: 24px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--accent), #00d4ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: #061226;
+        box-shadow: 0 6px 20px rgba(124, 92, 255, 0.18);
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+      p.lead {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 18px;
+      }
+
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border-radius: 14px;
+        padding: 16px;
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      /* Left column */
+      .hero {
+        padding: 18px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .hero h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .features {
+        display: flex;
+        gap: 12px;
+        margin-top: 8px;
+      }
+      .feat {
+        flex: 1;
+        background: var(--glass);
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+      }
+      .feat small {
+        display: block;
+        color: var(--muted);
+      }
+
+      /* Playground */
+      .editor {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      textarea {
+        width: 100%;
+        min-height: 200px;
+        background: #021126;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        color: #dff1ff;
+        padding: 12px;
+        font-family: Menlo, monospace;
+        font-size: 13px;
+        resize: vertical;
+      }
+      .controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .btn {
+        background: var(--accent);
+        border: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        color: #061226;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn.ghost {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: var(--muted);
+      }
+      .output {
+        background: #021526;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        min-height: 120px;
+        color: #dff1ff;
+        font-family: Menlo, monospace;
+        font-size: 13px;
+        overflow: auto;
+      }
+      .small {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      /* Right column */
+      .right .card-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .snippet {
+        padding: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0.02)
+        );
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .snippet h4 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+      }
+      .snippet p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      footer {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      @media (max-width: 980px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .right {
+          order: 2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <div class="logo">JS</div>
+          <div>
+            <h1>Core JavaScript — Interactive UI</h1>
+            <p class="lead">Learn and try small JS examples in the browser</p>
+          </div>
+        </div>
+        <div class="small">Simple • Fast • Clean</div>
+      </header>
+
+      <div class="grid">
+        <div>
+          <div class="card hero">
+            <h2>Welcome — quick start</h2>
+            <p>
+              Use the editor below to run JavaScript. Select a snippet from the
+              right, or write your own. The output console captures console.log
+              and errors.
+            </p>
+
+            <div class="features">
+              <div class="feat">
+                <strong>Playground</strong><small>Run code live</small>
+              </div>
+              <div class="feat">
+                <strong>Snippets</strong><small>Debounce, DOM, Fetch</small>
+              </div>
+              <div class="feat">
+                <strong>Responsive</strong><small>Mobile & desktop</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 12px">
+            <div class="editor">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <strong>Code editor</strong>
+                <div class="small">
+                  Try safe examples — no external network calls
+                </div>
+              </div>
+
+              <textarea id="code">
+// Example: debounce function + usage
+function debounce(fn, delay){
+  let t;
+  return function(...args){
+    clearTimeout(t);
+    t = setTimeout(()=>fn.apply(this,args), delay);
+  }
+}
+
+const say = (msg)=> console.log('Say:', msg);
+const deb = debounce(()=> say('Hello after 700ms'), 700);
+
+// call multiple times quickly:
+deb(); deb(); deb();
+
+// console shows single output after delay
+            </textarea
+              >
+
+              <div class="controls">
+                <button class="btn" id="run">Run ▶</button>
+                <button class="btn ghost" id="clear">Clear</button>
+                <select id="preset">
+                  <option value="">Load snippet...</option>
+                  <option value="debounce">Debounce example</option>
+                  <option value="dom">DOM manipulation</option>
+                  <option value="fetch">Fetch (mock)</option>
+                </select>
+              </div>
+
+              <div style="margin-top: 8px">
+                <div
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    margin-bottom: 6px;
+                  "
+                >
+                  <strong>Console output</strong
+                  ><span class="small">(console.log captured)</span>
+                </div>
+                <div id="output" class="output"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="right">
+          <div class="card card-list">
+            <div class="snippet">
+              <h4>Debounce</h4>
+              <p>
+                A small debounce helper to avoid calling a function too often.
+                Useful for search inputs.
+              </p>
+            </div>
+
+            <div class="snippet">
+              <h4>DOM manipulation</h4>
+              <p>
+                Select or modify elements, add events, update UI — core skills
+                for front-end.
+              </p>
+            </div>
+
+            <div class="snippet">
+              <h4>Fetch (Mock)</h4>
+              <p>
+                Shows how to use fetch and display results. In this playground
+                we use a mock so it works offline.
+              </p>
+            </div>
+
+            <div style="margin-top: 12px" class="small">
+              Hints: 1) Use console.log for output. 2) Errors are shown in red.
+              3) Don't run heavy loops.
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        Made for learning — edit freely. Want a darker/light theme or more
+        snippets? Tell me.
+      </footer>
+    </div>
+
+    <script>
+      const runBtn = document.getElementById('run');
+      const clearBtn = document.getElementById('clear');
+      const out = document.getElementById('output');
+      const code = document.getElementById('code');
+      const preset = document.getElementById('preset');
+
+      function write(msg, type = 'log') {
+        const el = document.createElement('div');
+        el.style.padding = '6px 8px';
+        el.style.borderRadius = '6px';
+        el.style.marginBottom = '6px';
+        el.style.whiteSpace = 'pre-wrap';
+        if (type === 'err') {
+          el.style.background = 'rgba(255,50,50,0.06)';
+          el.style.color = '#ffb3b3';
+        } else {
+          el.style.background = 'rgba(124,92,255,0.06)';
+          el.style.color = '#eaf0ff';
+        }
+        el.textContent = msg;
+        out.appendChild(el);
+        out.scrollTop = out.scrollHeight;
+      }
+
+      runBtn.addEventListener('click', () => {
+        out.innerHTML = '';
+        const userCode = code.value;
+        try {
+          // capture console.log
+          const logs = [];
+          const customConsole = {
+            log: (...args) =>
+              logs.push(
+                args
+                  .map((a) =>
+                    typeof a === 'object' ? JSON.stringify(a) : String(a)
+                  )
+                  .join(' ')
+              ),
+            info: function () {
+              this.log(...arguments);
+            },
+            error: function () {
+              logs.push('ERROR: ' + [...arguments].join(' '));
+            },
+          };
+          // run code in a Function with custom console
+          const fn = new Function('console', userCode);
+          fn(customConsole);
+          if (logs.length === 0) write('— no console output —');
+          logs.forEach((l) => write(l));
+        } catch (e) {
+          write(e.toString(), 'err');
+        }
+      });
+
+      clearBtn.addEventListener('click', () => {
+        out.innerHTML = '';
+      });
+
+      preset.addEventListener('change', () => {
+        const v = preset.value;
+        if (v === 'debounce') {
+          code.value = `// Debounce example\nfunction debounce(fn, delay){\n  let t;\n  return function(...args){\n    clearTimeout(t);\n    t = setTimeout(()=>fn.apply(this,args), delay);\n  }\n}\n\nconst say = (m)=> console.log('Say:', m);\nconst d = debounce(()=> say('fired after 700ms'),700);\n\n// simulate typing\nd(); d(); d();\n`;
+        } else if (v === 'dom') {
+          code.value = `// DOM example\nconst box = document.createElement('div');\nbox.textContent = 'Hello from JS — click me';\nbox.style.padding='12px';\nbox.style.border='1px solid rgba(255,255,255,0.06)';\nbox.style.borderRadius='8px';\nbox.style.cursor='pointer';\nbox.addEventListener('click', ()=> console.log('Box clicked'));
+document.body.appendChild(box);`;
+        } else if (v === 'fetch') {
+          code.value = `// Fetch (mock)\nconst data = [{name:'Alice'},{name:'Bob'}];\nconsole.log('Mock fetch result:', data);`;
+        }
+      });
+
+      // small safety: warn on heavy loops (best-effort)
+      window.addEventListener('error', (e) => {
+        write('Runtime error: ' + e.message, 'err');
+      });
+    </script>
+  </body>
+</html>
